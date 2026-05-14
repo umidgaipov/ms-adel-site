@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ms. Adel - ресницы, перманентный макияж, лазерная эпиляция и обучение beauty-мастеров в Ташкенте.">
+    <title>Ms. Adel - Архитектура взгляда</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="site-header" id="header">
+        <div class="header-inner">
+            <a class="brand" href="#hero" aria-label="Ms. Adel">Ms. Adel</a>
+
+            <nav class="nav" aria-label="Основная навигация">
+                <a href="#about">Обо мне</a>
+                <a href="#portfolio">Портфолио</a>
+                <a href="#training">Обучение</a>
+                <a href="#services">Услуги</a>
+                <a href="#reviews">Отзывы</a>
+                <a href="#contacts">Контакты</a>
+            </nav>
+
+            <a class="header-cta" href="https://t.me/MisssAdel" target="_blank" rel="noopener noreferrer">Записаться</a>
+            <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <nav>
+            <a href="#about">Обо мне</a>
+            <a href="#portfolio">Портфолио</a>
+            <a href="#training">Обучение</a>
+            <a href="#services">Услуги</a>
+            <a href="#reviews">Отзывы</a>
+            <a href="#contacts">Контакты</a>
+            <a class="mobile-cta" href="https://t.me/MisssAdel" target="_blank" rel="noopener noreferrer">Записаться</a>
+        </nav>
+    </div>
+
+    <main>
+        <section class="hero" id="hero">
+            <div class="hero-media">
+                <img src="assets/images/hero.png" alt="Ms. Adel - мастер beauty-услуг">
+            </div>
+            <div class="hero-copy reveal">
+                <p class="eyebrow">Luxury beauty master</p>
+                <h1>Архитектура взгляда.</h1>
+                <p class="hero-text">Наращивание, классическая и корейская ламинация ресниц, перманентный макияж и лазерная эпиляция. А так же обучение для будущих мастеров.</p>
+                <div class="hero-actions">
+                    <button class="button button-primary" type="button" data-open-training>Записаться на обучение</button>
+                    <a class="button button-outline" href="https://t.me/MisssAdel" target="_blank" rel="noopener noreferrer">Записаться</a>
+                </div>
+                <div class="hero-note" aria-label="Стаж и специализация">
+                    <span>10+ лет практики</span>
+                    <span>Ресницы · Перманент · Лазер</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section about" id="about">
+            <div class="section-grid">
+                <div class="reveal">
+                    <p class="eyebrow">Обо мне</p>
+                    <h2>Адель</h2>
+                    <div class="prose">
+                        <p>Сертифицированный мастер по наращиванию и ламинации ресниц, перманентному макияжу и лазерной эпиляции. Моя задача - создать натуральный, аккуратный и выразительный результат, который подчёркивает индивидуальную красоту.</p>
+                        <p>В работе использую премиальные материалы, тщательно подбираю эффект и форму, а каждую процедуру провожу с вниманием к безопасности и комфорту клиента.</p>
+                        <p>Отдельное направление - обучение мастеров. Я делюсь практическим опытом, разбираю сложные случаи и помогаю уверенно стартовать в beauty-сфере.</p>
+                    </div>
+                </div>
+
+                <div class="about-visual reveal">
+                    <img class="work-photo" src="assets/images/work.png" alt="Адель в процессе работы">
+                    <div class="stats">
+                        <article>
+                            <span>10+</span>
+                            <p>Лет опыта</p>
+                        </article>
+                        <article>
+                            <span>1000+</span>
+                            <p>Довольных клиентов</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section portfolio" id="portfolio">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Портфолио</p>
+                <h2>Мои работы</h2>
+            </div>
+
+            <div class="portfolio-rows reveal">
+                <div class="portfolio-row">
+                    <p>Ресницы</p>
+                    <div class="portfolio-marquee drag-scroll">
+                        <div class="portfolio-track">
+                            <button class="portfolio-item" type="button" data-title="Классическое наращивание"><img src="assets/images/lashes.png" alt="Классическое наращивание"><span>Классика</span></button>
+                            <button class="portfolio-item" type="button" data-title="Ламинация ресниц"><img src="assets/images/portfolio-1.png" alt="Ламинация ресниц"><span>Ламинация</span></button>
+                            <button class="portfolio-item" type="button" data-title="Корейская ламинация"><img src="assets/images/portfolio-1.png" alt="Корейская ламинация"><span>Корейская техника</span></button>
+                            <button class="portfolio-item" type="button" data-title="Объёмное наращивание"><img src="assets/images/lashes.png" alt="Объёмное наращивание"><span>Объём</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Классическое наращивание"><img src="assets/images/lashes.png" alt=""><span>Классика</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Ламинация ресниц"><img src="assets/images/portfolio-1.png" alt=""><span>Ламинация</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Корейская ламинация"><img src="assets/images/portfolio-1.png" alt=""><span>Корейская техника</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Объёмное наращивание"><img src="assets/images/lashes.png" alt=""><span>Объём</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Классическое наращивание"><img src="assets/images/lashes.png" alt=""><span>Классика</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Ламинация ресниц"><img src="assets/images/portfolio-1.png" alt=""><span>Ламинация</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Корейская ламинация"><img src="assets/images/portfolio-1.png" alt=""><span>Корейская техника</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Объёмное наращивание"><img src="assets/images/lashes.png" alt=""><span>Объём</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-row">
+                    <p>Перманент</p>
+                    <div class="portfolio-marquee drag-scroll">
+                        <div class="portfolio-track">
+                            <button class="portfolio-item" type="button" data-title="Пудровое напыление"><img src="assets/images/portfolio-2.png" alt="Пудровое напыление"><span>Пудровое напыление</span></button>
+                            <button class="portfolio-item" type="button" data-title="Акварельные губки"><img src="assets/images/portfolio-3.png" alt="Акварельные губки"><span>Акварельные губки</span></button>
+                            <button class="portfolio-item" type="button" data-title="Перекрытие старого татуажа"><img src="assets/images/brows.png" alt="Перекрытие старого татуажа"><span>Перекрытие</span></button>
+                            <button class="portfolio-item" type="button" data-title="Рабочее пространство"><img src="assets/images/permanent.png" alt="Рабочее пространство"><span>Процесс</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Пудровое напыление"><img src="assets/images/portfolio-2.png" alt=""><span>Пудровое напыление</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Акварельные губки"><img src="assets/images/portfolio-3.png" alt=""><span>Акварельные губки</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Перекрытие старого татуажа"><img src="assets/images/brows.png" alt=""><span>Перекрытие</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Рабочее пространство"><img src="assets/images/permanent.png" alt=""><span>Процесс</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Пудровое напыление"><img src="assets/images/portfolio-2.png" alt=""><span>Пудровое напыление</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Акварельные губки"><img src="assets/images/portfolio-3.png" alt=""><span>Акварельные губки</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Перекрытие старого татуажа"><img src="assets/images/brows.png" alt=""><span>Перекрытие</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Рабочее пространство"><img src="assets/images/permanent.png" alt=""><span>Процесс</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-row">
+                    <p>Лазер</p>
+                    <div class="portfolio-marquee drag-scroll">
+                        <div class="portfolio-track">
+                            <button class="portfolio-item" type="button" data-title="Лазерная эпиляция"><img src="assets/images/training.png" alt="Лазерная эпиляция"><span>Подмышки</span></button>
+                            <button class="portfolio-item" type="button" data-title="Лазерная эпиляция рук"><img src="assets/images/work.png" alt="Лазерная эпиляция рук"><span>Руки</span></button>
+                            <button class="portfolio-item" type="button" data-title="Лазерная эпиляция ног"><img src="assets/images/training.png" alt="Лазерная эпиляция ног"><span>Ноги</span></button>
+                            <button class="portfolio-item" type="button" data-title="Консультация"><img src="assets/images/work.png" alt="Консультация"><span>Консультация</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Лазерная эпиляция"><img src="assets/images/training.png" alt=""><span>Подмышки</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Лазерная эпиляция рук"><img src="assets/images/work.png" alt=""><span>Руки</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Лазерная эпиляция ног"><img src="assets/images/training.png" alt=""><span>Ноги</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Консультация"><img src="assets/images/work.png" alt=""><span>Консультация</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Лазерная эпиляция"><img src="assets/images/training.png" alt=""><span>Подмышки</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Лазерная эпиляция рук"><img src="assets/images/work.png" alt=""><span>Руки</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Лазерная эпиляция ног"><img src="assets/images/training.png" alt=""><span>Ноги</span></button>
+                            <button class="portfolio-item duplicate" type="button" aria-hidden="true" data-title="Консультация"><img src="assets/images/work.png" alt=""><span>Консультация</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="training" id="training">
+            <div class="training-inner">
+                <div class="training-copy reveal">
+                    <p class="eyebrow">Тарифы</p>
+                    <h2>Обучение</h2>
+                    <p>Можно выбрать отдельное направление или пройти комбо-программу, чтобы сразу собрать полноценную линейку услуг для старта.</p>
+                    <div class="tariffs">
+                        <article>
+                            <span>01</span>
+                            <h3>Ламинация</h3>
+                            <p>Классическая ламинация + новая корейская техника. Материалы, схемы, безопасность и отработка на модели.</p>
+                        </article>
+                        <article>
+                            <span>02</span>
+                            <h3>Наращивание</h3>
+                            <p>Все базовые техники наращивания, эффекты, работа с объёмом и дополнительные услуги для клиента.</p>
+                        </article>
+                        <article>
+                            <span>03</span>
+                            <h3>Комбо</h3>
+                            <p>Полная программа из двух направлений: ламинация, корейская техника, наращивание и стартовый разбор профессии.</p>
+                        </article>
+                    </div>
+                    <button class="button button-accent training-cta" type="button" data-open-training>Оставить заявку</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section services" id="services">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Услуги</p>
+                <h2>Список процедур</h2>
+                <p>Подбор эффекта, формы и курса осуществляется индивидуально на консультации.</p>
+            </div>
+
+            <div class="service-grid service-grid-three">
+                <article class="service-card reveal">
+                    <div class="service-image">
+                        <img src="assets/images/lashes.png" alt="Наращивание и ламинация ресниц">
+                        <h3>Ресницы</h3>
+                    </div>
+                    <button class="service-toggle" type="button" aria-expanded="false">Топ процедур</button>
+                    <div class="service-panel">
+                        <dl>
+                            <div><dt>Классическое наращивание</dt><dd>250 000 сум</dd></div>
+                            <div><dt>Мокрый эффект</dt><dd>300 000 сум</dd></div>
+                            <div><dt>Классическая ламинация</dt><dd>250 000 сум</dd></div>
+                            <div><dt>Корейская ламинация</dt><dd>350 000 сум</dd></div>
+                            <div><dt>Ботокс ресниц</dt><dd>100 000 сум</dd></div>
+                        </dl>
+                        <div class="price-links">
+                            <a href="https://telegra.ph/Prajs-resnicy-01-17-2" target="_blank" rel="noopener noreferrer">Полный прайс</a>
+                            <a href="https://t.me/MisssAdel" target="_blank" rel="noopener noreferrer">Записаться</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="service-card reveal">
+                    <div class="service-image">
+                        <img src="assets/images/permanent.png" alt="Перманентный макияж">
+                        <h3>Перманент</h3>
+                    </div>
+                    <button class="service-toggle" type="button" aria-expanded="false">Топ процедур</button>
+                    <div class="service-panel">
+                        <dl>
+                            <div><dt>Пудровое напыление</dt><dd>800 000 сум</dd></div>
+                            <div><dt>Теневая растушёвка</dt><dd>800 000 сум</dd></div>
+                            <div><dt>Акварельные губки</dt><dd>800 000 сум</dd></div>
+                            <div><dt>Эффект помады</dt><dd>800 000 сум</dd></div>
+                            <div><dt>Коррекция</dt><dd>400 000 сум</dd></div>
+                        </dl>
+                        <div class="price-links">
+                            <a href="https://telegra.ph/Prajs-permanent-01-17" target="_blank" rel="noopener noreferrer">Полный прайс</a>
+                            <a href="https://t.me/MisssAdel" target="_blank" rel="noopener noreferrer">Записаться</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="service-card reveal">
+                    <div class="service-image">
+                        <img src="assets/images/training.png" alt="Лазерная эпиляция">
+                        <h3>Лазер</h3>
+                    </div>
+                    <button class="service-toggle" type="button" aria-expanded="false">Топ процедур</button>
+                    <div class="service-panel">
+                        <dl>
+                            <div><dt>Верхняя губа/подбородок</dt><dd>100 000 сум</dd></div>                            
+			    <div><dt>Подмышки</dt><dd>200 000 сум</dd></div>
+                            <div><dt>Руки половина</dt><dd>350 000 сум</dd></div>
+                            <div><dt>Ноги половина</dt><dd>400 000 сум</dd></div>
+                            <div><dt>Бикини</dt><dd>400 000 сум</dd></div>
+                        </dl>
+                        <div class="price-links">
+                            <a href="https://telegra.ph/Prajs-lazer-01-17" target="_blank" rel="noopener noreferrer">Полный прайс</a>
+                            <a href="https://t.me/MisssAdel" target="_blank" rel="noopener noreferrer">Записаться</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section reviews" id="reviews">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Отзывы</p>
+                <h2>Что говорят клиенты</h2>
+            </div>
+
+            <div class="reviews-marquee drag-scroll" aria-label="Отзывы клиентов">
+                <div class="reviews-track">
+                    <article class="review-card">
+                        <img class="review-photo" src="assets/images/lashes.png" alt="Наращивание ресниц">
+                        <p>“Ресницы просто идеальные! Ношу уже третью неделю, всё на месте. Adel подобрала идеальный объём и всё объяснила.”</p>
+                        <footer><strong>Камила</strong><span>Наращивание</span></footer>
+                    </article>
+                    <article class="review-card">
+                        <img class="review-photo" src="assets/images/portfolio-1.png" alt="Корейская ламинация">
+                        <p>“Корейская ламинация выглядит очень натурально. Ресницы поднялись красиво, без ощущения тяжести.”</p>
+                        <footer><strong>Сабина</strong><span>Корейская ламинация</span></footer>
+                    </article>
+                    <article class="review-card">
+                        <img class="review-photo" src="assets/images/portfolio-2.png" alt="Пудровое напыление">
+                        <p>“Делала пудровое напыление. Цвет и форма получились мягкими, аккуратными, именно как я хотела.”</p>
+                        <footer><strong>Мадина</strong><span>Перманент бровей</span></footer>
+                    </article>
+                    <article class="review-card">
+                        <img class="review-photo" src="assets/images/portfolio-3.png" alt="Акварельные губки">
+                        <p>“Акварельные губки получились нежные и естественные. Процесс прошёл спокойно, совсем не страшно.”</p>
+                        <footer><strong>Лола</strong><span>Перманент губ</span></footer>
+                    </article>
+                    <article class="review-card">
+                        <img class="review-photo" src="assets/images/training.png" alt="Лазерная эпиляция">
+                        <p>“Лазер прошёл комфортно, всё подробно объяснили. Уже после первых процедур заметила результат.”</p>
+                        <footer><strong>Наргиза</strong><span>Лазерная эпиляция</span></footer>
+                    </article>
+                    <article class="review-card">
+                        <img class="review-photo" src="assets/images/work.png" alt="Обучение">
+                        <p>“Прошла обучение и получила уверенность в себе. Много практики, понятная теория и поддержка после курса.”</p>
+                        <footer><strong>Дильноза</strong><span>Обучение</span></footer>
+                    </article>
+                    <article class="review-card">
+                        <img class="review-photo" src="assets/images/lashes.png" alt="Ресницы">
+                        <p>“Очень чисто, спокойно и профессионально. Результат выглядит дорого, но без перебора.”</p>
+                        <footer><strong>Зиёда</strong><span>Ресницы</span></footer>
+                    </article>
+                    <article class="review-card">
+                        <img class="review-photo" src="assets/images/brows.png" alt="Перманент">
+                        <p>“После коррекции старого татуажа брови наконец выглядят ровно и натурально. Спасибо за терпение.”</p>
+                        <footer><strong>Феруза</strong><span>Перманент</span></footer>
+                    </article>
+                    <article class="review-card duplicate" aria-hidden="true">
+                        <img class="review-photo" src="assets/images/lashes.png" alt="">
+                        <p>“Ресницы просто идеальные! Ношу уже третью неделю, всё на месте. Adel подобрала идеальный объём и всё объяснила.”</p>
+                        <footer><strong>Камила</strong><span>Наращивание</span></footer>
+                    </article>
+                    <article class="review-card duplicate" aria-hidden="true">
+                        <img class="review-photo" src="assets/images/portfolio-1.png" alt="">
+                        <p>“Корейская ламинация выглядит очень натурально. Ресницы поднялись красиво, без ощущения тяжести.”</p>
+                        <footer><strong>Сабина</strong><span>Корейская ламинация</span></footer>
+                    </article>
+                    <article class="review-card duplicate" aria-hidden="true">
+                        <img class="review-photo" src="assets/images/portfolio-2.png" alt="">
+                        <p>“Делала пудровое напыление. Цвет и форма получились мягкими, аккуратными, именно как я хотела.”</p>
+                        <footer><strong>Мадина</strong><span>Перманент бровей</span></footer>
+                    </article>
+                    <article class="review-card duplicate" aria-hidden="true">
+                        <img class="review-photo" src="assets/images/portfolio-3.png" alt="">
+                        <p>“Акварельные губки получились нежные и естественные. Процесс прошёл спокойно, совсем не страшно.”</p>
+                        <footer><strong>Лола</strong><span>Перманент губ</span></footer>
+                    </article>
+                    <article class="review-card duplicate" aria-hidden="true">
+                        <img class="review-photo" src="assets/images/training.png" alt="">
+                        <p>“Лазер прошёл комфортно, всё подробно объяснили. Уже после первых процедур заметила результат.”</p>
+                        <footer><strong>Наргиза</strong><span>Лазерная эпиляция</span></footer>
+                    </article>
+                    <article class="review-card duplicate" aria-hidden="true">
+                        <img class="review-photo" src="assets/images/work.png" alt="">
+                        <p>“Прошла обучение и получила уверенность в себе. Много практики, понятная теория и поддержка после курса.”</p>
+                        <footer><strong>Дильноза</strong><span>Обучение</span></footer>
+                    </article>
+                    <article class="review-card duplicate" aria-hidden="true">
+                        <img class="review-photo" src="assets/images/lashes.png" alt="">
+                        <p>“Очень чисто, спокойно и профессионально. Результат выглядит дорого, но без перебора.”</p>
+                        <footer><strong>Зиёда</strong><span>Ресницы</span></footer>
+                    </article>
+                    <article class="review-card duplicate" aria-hidden="true">
+                        <img class="review-photo" src="assets/images/brows.png" alt="">
+                        <p>“После коррекции старого татуажа брови наконец выглядят ровно и натурально. Спасибо за терпение.”</p>
+                        <footer><strong>Феруза</strong><span>Перманент</span></footer>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contacts" id="contacts">
+            <div class="contact-box reveal">
+                <p class="eyebrow">Контакты</p>
+                <h2>Свяжитесь со мной</h2>
+                <p>Для записи или вопросов пишите в Telegram, Instagram или позвоните напрямую.</p>
+                <div class="contact-actions">
+                    <a class="button contact-button telegram" href="https://t.me/MisssAdel" target="_blank" rel="noopener noreferrer">Telegram</a>
+                    <a class="button contact-button instagram" href="https://www.instagram.com/missadel" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a class="button contact-button phone" href="tel:+998909244416">Позвонить</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <a class="brand" href="#hero">Ms. Adel</a>
+        <p>© 2026 Все права защищены</p>
+    </footer>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button type="button" class="lightbox-close" aria-label="Закрыть">×</button>
+        <img src="" alt="">
+        <p></p>
+    </div>
+
+    <div class="modal" id="trainingModal" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="trainingModalTitle">
+            <button type="button" class="modal-close" aria-label="Закрыть">×</button>
+            <h2 id="trainingModalTitle">Заявка на обучение</h2>
+            <p>Оставьте контакты, и я расскажу все подробности программы.</p>
+            <form class="training-form">
+                <label>
+                    <span>Имя</span>
+                    <input type="text" name="name" placeholder="Ваше имя" required>
+                </label>
+                <label>
+                    <span>Телефон или Telegram</span>
+                    <input type="text" name="contact" placeholder="+998 или @username" required>
+                </label>
+                <button class="button button-primary" type="submit">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
