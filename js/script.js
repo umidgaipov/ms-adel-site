@@ -68,9 +68,45 @@ function syncMarqueeOffsets() {
     });
 }
 
-window.addEventListener("resize", syncMarqueeOffsets);
-window.addEventListener("load", syncMarqueeOffsets);
-syncMarqueeOffsets();
+function fillReviewMarquee() {
+    const track = document.querySelector(".reviews-track");
+    const marquee = track?.closest(".reviews-marquee");
+
+    if (!track || !marquee) {
+        return;
+    }
+
+    const originalCards = Array.from(track.children).filter((card) => !card.classList.contains("duplicate"));
+    const firstDuplicate = track.querySelector(".duplicate");
+
+    if (!originalCards.length || !firstDuplicate) {
+        return;
+    }
+
+    const loopWidth = firstDuplicate.offsetLeft;
+    const targetWidth = loopWidth * 2 + marquee.offsetWidth;
+
+    while (track.scrollWidth < targetWidth) {
+        originalCards.forEach((card) => {
+            const clone = card.cloneNode(true);
+            clone.classList.add("duplicate");
+            clone.setAttribute("aria-hidden", "true");
+            clone.querySelectorAll("img").forEach((img) => {
+                img.alt = "";
+            });
+            track.appendChild(clone);
+        });
+    }
+}
+
+function setupMarquees() {
+    fillReviewMarquee();
+    syncMarqueeOffsets();
+}
+
+window.addEventListener("resize", setupMarquees);
+window.addEventListener("load", setupMarquees);
+setupMarquees();
 
 menuToggle.addEventListener("click", () => {
     const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
