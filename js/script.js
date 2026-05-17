@@ -5,8 +5,6 @@ const serviceToggles = document.querySelectorAll(".service-toggle");
 const portfolioItems = document.querySelectorAll(".portfolio-item");
 const dragAreas = document.querySelectorAll(".drag-scroll");
 const lightbox = document.querySelector("#lightbox");
-const trainingModal = document.querySelector("#trainingModal");
-const trainingForm = document.querySelector(".training-form");
 const heroImage = document.querySelector(".hero-media img");
 
 function setHeaderState() {
@@ -19,19 +17,6 @@ function closeMobileMenu() {
     mobileMenu.classList.remove("is-open");
     header.classList.remove("is-open");
     document.body.classList.remove("menu-open");
-}
-
-function openTrainingModal() {
-    trainingModal.classList.add("is-open");
-    trainingModal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("modal-open");
-    trainingModal.querySelector("input")?.focus();
-}
-
-function closeTrainingModal() {
-    trainingModal.classList.remove("is-open");
-    trainingModal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("modal-open");
 }
 
 function closeLightbox() {
@@ -216,27 +201,6 @@ lightbox.addEventListener("click", (event) => {
     }
 });
 
-document.querySelectorAll("[data-open-training]").forEach((button) => {
-    button.addEventListener("click", openTrainingModal);
-});
-
-trainingModal.addEventListener("click", (event) => {
-    if (event.target === trainingModal || event.target.classList.contains("modal-close")) {
-        closeTrainingModal();
-    }
-});
-
-trainingForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = new FormData(trainingForm);
-    const name = data.get("name");
-    const contact = data.get("contact");
-    const text = encodeURIComponent(`Здравствуйте! Хочу узнать про обучение.\nИмя: ${name}\nКонтакт: ${contact}`);
-    window.open(`https://t.me/MisssAdel?text=${text}`, "_blank", "noopener,noreferrer");
-    trainingForm.reset();
-    closeTrainingModal();
-});
-
 document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") {
         return;
@@ -244,7 +208,6 @@ document.addEventListener("keydown", (event) => {
 
     closeMobileMenu();
     closeLightbox();
-    closeTrainingModal();
 });
 
 const revealObserver = new IntersectionObserver((entries) => {

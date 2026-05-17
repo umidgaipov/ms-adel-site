@@ -914,8 +914,7 @@ h3 {
     font-size: 12px;
 }
 
-.lightbox,
-.modal {
+.lightbox {
     position: fixed;
     z-index: 100;
     inset: 0;
@@ -927,8 +926,7 @@ h3 {
     backdrop-filter: blur(12px);
 }
 
-.lightbox.is-open,
-.modal.is-open {
+.lightbox.is-open {
     display: flex;
 }
 
@@ -949,8 +947,7 @@ h3 {
     text-align: center;
 }
 
-.lightbox-close,
-.modal-close {
+.lightbox-close {
     position: absolute;
     top: 22px;
     right: 24px;
@@ -961,63 +958,6 @@ h3 {
     background: transparent;
     font-size: 36px;
     line-height: 1;
-}
-
-.modal {
-    background: rgba(41, 35, 31, 0.58);
-}
-
-.modal-card {
-    position: relative;
-    width: min(100%, 460px);
-    padding: 42px;
-    background: var(--background);
-    box-shadow: var(--shadow);
-}
-
-.modal-card h2 {
-    font-size: 42px;
-}
-
-.modal-card p {
-    margin: 12px 0 28px;
-    color: var(--muted);
-}
-
-.modal-card .modal-close {
-    color: var(--foreground);
-}
-
-.training-form {
-    display: grid;
-    gap: 18px;
-}
-
-.training-form label {
-    display: grid;
-    gap: 8px;
-}
-
-.training-form span {
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-}
-
-.training-form input {
-    width: 100%;
-    height: 46px;
-    padding: 0 14px;
-    border: 1px solid var(--border);
-    color: var(--foreground);
-    background: var(--card);
-    outline: 0;
-}
-
-.training-form input:focus {
-    border-color: var(--accent);
 }
 
 .reveal {
@@ -1442,8 +1382,7 @@ h1 {
         gap: 10px;
     }
 
-    .review-card,
-    .modal-card {
+    .review-card {
         padding: 28px;
     }
 
