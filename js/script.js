@@ -55,6 +55,23 @@ function updateHeroParallax() {
 window.addEventListener("scroll", updateHeroParallax, { passive: true });
 updateHeroParallax();
 
+function syncMarqueeOffsets() {
+    document.querySelectorAll(".portfolio-track, .reviews-track").forEach((track) => {
+        const firstDuplicate = track.querySelector(".duplicate");
+
+        if (!firstDuplicate) {
+            return;
+        }
+
+        track.style.setProperty("--marquee-offset", `${-firstDuplicate.offsetLeft}px`);
+        track.closest(".drag-scroll")?.style.setProperty("--marquee-loop", `${firstDuplicate.offsetLeft}px`);
+    });
+}
+
+window.addEventListener("resize", syncMarqueeOffsets);
+window.addEventListener("load", syncMarqueeOffsets);
+syncMarqueeOffsets();
+
 menuToggle.addEventListener("click", () => {
     const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
     menuToggle.setAttribute("aria-expanded", String(!isOpen));
@@ -124,6 +141,12 @@ dragAreas.forEach((area) => {
             area.dataset.dragged = "true";
         }
         area.scrollLeft = startScroll - delta;
+        const loopWidth = parseFloat(area.style.getPropertyValue("--marquee-loop"));
+
+        if (loopWidth > 0 && area.scrollLeft >= loopWidth) {
+            area.scrollLeft -= loopWidth;
+            startScroll -= loopWidth;
+        }
     });
 
     function endDrag(event) {

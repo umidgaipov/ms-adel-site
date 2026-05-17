@@ -655,7 +655,7 @@ h3 {
     }
 
     to {
-        transform: translateX(calc(-50% - 8px));
+        transform: translateX(var(--marquee-offset, calc(-50% - 8px)));
     }
 }
 
@@ -813,7 +813,7 @@ h3 {
     }
 
     to {
-        transform: translateX(calc(-50% - 12px));
+        transform: translateX(var(--marquee-offset, calc(-50% - 10px)));
     }
 }
 
