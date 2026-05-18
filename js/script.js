@@ -6,6 +6,7 @@ const portfolioItems = document.querySelectorAll(".portfolio-item");
 const dragAreas = document.querySelectorAll(".drag-scroll");
 const lightbox = document.querySelector("#lightbox");
 const heroImage = document.querySelector(".hero-media img");
+const locationPhotos = document.querySelectorAll(".location-photo");
 
 function setHeaderState() {
     header.classList.toggle("is-scrolled", window.scrollY > 44);
@@ -39,6 +40,26 @@ function updateHeroParallax() {
 
 window.addEventListener("scroll", updateHeroParallax, { passive: true });
 updateHeroParallax();
+
+function updateLocationParallax() {
+    if (!locationPhotos.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+    }
+
+    locationPhotos.forEach((photo, index) => {
+        const rect = photo.getBoundingClientRect();
+        const viewportCenter = window.innerHeight / 2;
+        const photoCenter = rect.top + rect.height / 2;
+        const intensity = index === 0 ? 0.028 : 0.044;
+        const offset = Math.max(-18, Math.min(18, (viewportCenter - photoCenter) * intensity));
+
+        photo.style.setProperty("--location-parallax", `${offset}px`);
+    });
+}
+
+window.addEventListener("scroll", updateLocationParallax, { passive: true });
+window.addEventListener("resize", updateLocationParallax);
+updateLocationParallax();
 
 function syncMarqueeOffsets() {
     document.querySelectorAll(".portfolio-track, .reviews-track").forEach((track) => {
