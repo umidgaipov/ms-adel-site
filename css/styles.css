@@ -1431,16 +1431,24 @@ h1 {
     position: relative;
     width: 100%;
     justify-content: center;
-    gap: 10px;
-    border: 1px solid transparent;
+    padding-right: 58px;
+    padding-left: 58px;
+    border: 0;
     border-radius: 999px;
     color: #fffaf2;
-    box-shadow: 0 16px 34px rgba(41, 35, 31, 0.13);
+    background-clip: padding-box;
+    box-shadow: 0 14px 30px rgba(41, 35, 31, 0.12);
+    overflow: hidden;
+    transform: translateZ(0);
 }
 
 .map-button.button::before {
+    position: absolute;
+    left: 36px;
+    top: 50%;
     width: 24px;
     height: 24px;
+    transform: translateY(-50%);
     border-radius: 50%;
     display: inline-flex;
     align-items: center;

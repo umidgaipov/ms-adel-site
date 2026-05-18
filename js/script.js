@@ -127,6 +127,29 @@ mobileMenu.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", closeMobileMenu);
 });
 
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+        const targetId = link.getAttribute("href");
+
+        if (!targetId || targetId === "#") {
+            return;
+        }
+
+        const target = document.querySelector(targetId);
+
+        if (!target) {
+            return;
+        }
+
+        event.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        if (window.location.hash) {
+            history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
+    });
+});
+
 serviceToggles.forEach((toggle) => {
     toggle.addEventListener("click", () => {
         const card = toggle.closest(".service-card");
