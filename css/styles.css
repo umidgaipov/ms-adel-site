@@ -1265,109 +1265,137 @@ p:last-child {
 }
 
 /* -------------------------------------------------------------
-   10. Services Quick Navigation («Чем могу вам помочь?»)
+   10. Services Section & Direction-Aware Tabs
    ------------------------------------------------------------- */
-.quick-nav-section {
+.services-tabs-section {
     background-color: var(--color-bg-primary);
     border-top: 1px solid var(--color-border-subtle);
+    padding-block: clamp(64px, 8vw, 120px);
 }
 
-.quick-nav-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
-}
-
-.quick-nav-card {
+.tabs-nav-wrapper {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 28px 24px;
-    background-color: var(--color-surface-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-soft);
-    text-decoration: none;
-    color: var(--color-text-primary);
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
-}
-
-.quick-nav-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--color-accent-hover);
-}
-
-.quick-nav-card:focus-visible {
-    outline: 2px solid var(--color-text-primary);
-    outline-offset: 3px;
-}
-
-.quick-nav-card-accent {
-    background: linear-gradient(145deg, #FFFFFF 0%, #FFF5F7 100%);
-    border-color: rgba(223, 168, 183, 0.45);
-}
-
-.quick-nav-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: var(--radius-lg);
-    background-color: var(--color-bg-secondary);
-    color: var(--color-text-primary);
-    display: flex;
-    align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    align-items: center;
+    margin: 0 auto clamp(36px, 5vw, 56px);
+    width: 100%;
 }
 
-.quick-nav-card:hover .quick-nav-icon {
-    transform: scale(1.08);
-    background-color: var(--color-accent-hover);
-}
-
-.quick-nav-tag {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    margin-bottom: 8px;
-}
-
-.quick-nav-title {
-    font-family: var(--font-heading);
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1.25;
-    color: var(--color-text-primary);
-    margin: 0 0 10px;
-}
-
-.quick-nav-desc {
-    font-family: var(--font-body);
-    font-size: 14px;
-    line-height: 1.55;
-    color: var(--color-text-secondary);
-    margin: 0 0 20px;
-}
-
-.quick-nav-action {
+.tabs-nav {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-family: var(--font-heading);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    transition: gap 0.25s ease, color 0.25s ease;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid rgba(223, 168, 183, 0.45);
+    border-radius: var(--radius-full);
+    padding: 6px;
+    box-shadow: var(--shadow-soft);
+    gap: 4px;
+    max-width: 100%;
 }
 
-.quick-nav-card:hover .quick-nav-action {
-    gap: 10px;
-    color: #3D2B24;
+.tab-indicator {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    height: calc(100% - 12px);
+    border-radius: var(--radius-full);
+    background-color: var(--color-surface-white);
+    box-shadow: 0 4px 14px rgba(92, 67, 56, 0.12);
+    pointer-events: none;
+    z-index: 1;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tab-btn {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: 0;
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.25s ease;
+}
+
+.tab-btn:hover {
+    color: var(--color-text-primary);
+}
+
+.tab-btn.is-active {
+    color: var(--color-text-primary);
+}
+
+.tab-btn:focus-visible {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 2px;
+}
+
+.tab-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    transition: transform 0.25s ease;
+}
+
+.tab-btn:hover .tab-btn-icon {
+    transform: scale(1.1);
+}
+
+/* Tabs Content Container & Panels */
+.tabs-panels-container {
+    position: relative;
+    min-height: 480px;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.is-active {
+    display: block;
+}
+
+/* Direction-Aware Slide Animations */
+@keyframes tabSlideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(32px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes tabSlideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-32px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.tab-panel.slide-in-right {
+    animation: tabSlideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.tab-panel.slide-in-left {
+    animation: tabSlideInLeft 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* -------------------------------------------------------------
@@ -2299,7 +2327,24 @@ p:last-child {
 
 @media (max-width: 680px) {
     .brand { font-size: 22px; }
-    .quick-nav-grid { grid-template-columns: 1fr; gap: 14px; }
+    .tabs-nav-wrapper {
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-inline: 4px;
+        scrollbar-width: none;
+    }
+    .tabs-nav-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+    .tabs-nav {
+        margin: 0 auto;
+    }
+    .tab-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+        gap: 6px;
+    }
     .service-cta-actions { flex-direction: column; }
     .service-cta-actions .button { width: 100%; min-width: 0; }
     .hero-actions, .contact-actions { flex-direction: column; }
@@ -2311,6 +2356,15 @@ p:last-child {
 }
 
 @media (max-width: 540px) {
+    .tab-btn {
+        padding: 9px 12px;
+        font-size: 12px;
+        gap: 5px;
+    }
+    .tab-btn-icon svg {
+        width: 15px;
+        height: 15px;
+    }
     .about-bento {
         grid-template-columns: 1fr;
         gap: 12px;

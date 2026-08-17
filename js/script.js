@@ -178,15 +178,146 @@ if (mobileMenu) {
     });
 }
 
+/* -------------------------------------------------------------
+   Direction-Aware Tabs
+   ------------------------------------------------------------- */
+function initDirectionAwareTabs() {
+    const tabsNav = document.querySelector(".tabs-nav");
+    const indicator = document.querySelector(".tab-indicator");
+    const tabButtons = Array.from(document.querySelectorAll(".tab-btn"));
+    const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
+
+    if (!tabsNav || !indicator || !tabButtons.length || !tabPanels.length) {
+        return;
+    }
+
+    let currentIndex = tabButtons.findIndex((btn) => btn.classList.contains("is-active"));
+    if (currentIndex === -1) {
+        currentIndex = 0;
+    }
+
+    function updateIndicator(targetBtn) {
+        if (!targetBtn) return;
+        const navRect = tabsNav.getBoundingClientRect();
+        const btnRect = targetBtn.getBoundingClientRect();
+
+        const offsetLeft = btnRect.left - navRect.left;
+        const btnWidth = btnRect.width;
+
+        indicator.style.transform = `translateX(${offsetLeft}px)`;
+        indicator.style.width = `${btnWidth}px`;
+    }
+
+    function switchTab(nextIndex, animate = true) {
+        if (nextIndex < 0 || nextIndex >= tabButtons.length) return;
+        if (nextIndex === currentIndex && animate) return;
+
+        const prevIndex = currentIndex;
+        currentIndex = nextIndex;
+
+        const direction = nextIndex >= prevIndex ? "right" : "left";
+
+        tabButtons.forEach((btn, idx) => {
+            const isActive = idx === currentIndex;
+            btn.classList.toggle("is-active", isActive);
+            btn.setAttribute("aria-selected", String(isActive));
+            btn.setAttribute("tabindex", isActive ? "0" : "-1");
+        });
+
+        updateIndicator(tabButtons[currentIndex]);
+
+        tabPanels.forEach((panel, idx) => {
+            if (idx === currentIndex) {
+                panel.hidden = false;
+                panel.classList.add("is-active");
+
+                if (animate) {
+                    panel.classList.remove("slide-in-right", "slide-in-left");
+                    void panel.offsetWidth;
+                    panel.classList.add(direction === "right" ? "slide-in-right" : "slide-in-left");
+                }
+            } else {
+                panel.classList.remove("is-active", "slide-in-right", "slide-in-left");
+                panel.hidden = true;
+            }
+        });
+    }
+
+    tabButtons.forEach((btn, index) => {
+        btn.addEventListener("click", () => {
+            switchTab(index, true);
+        });
+    });
+
+    tabsNav.addEventListener("keydown", (event) => {
+        let targetIndex = null;
+
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+            event.preventDefault();
+            targetIndex = (currentIndex + 1) % tabButtons.length;
+        } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+            event.preventDefault();
+            targetIndex = (currentIndex - 1 + tabButtons.length) % tabButtons.length;
+        } else if (event.key === "Home") {
+            event.preventDefault();
+            targetIndex = 0;
+        } else if (event.key === "End") {
+            event.preventDefault();
+            targetIndex = tabButtons.length - 1;
+        }
+
+        if (targetIndex !== null) {
+            tabButtons[targetIndex].focus();
+            switchTab(targetIndex, true);
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        updateIndicator(tabButtons[currentIndex]);
+    });
+
+    // Initial positioning
+    updateIndicator(tabButtons[currentIndex]);
+    setTimeout(() => {
+        updateIndicator(tabButtons[currentIndex]);
+    }, 120);
+
+    window.switchServiceTab = switchTab;
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initDirectionAwareTabs);
+} else {
+    initDirectionAwareTabs();
+}
+
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", (event) => {
-        const targetId = link.getAttribute("href");
+        const rawHref = link.getAttribute("href");
 
-        if (!targetId || targetId === "#") {
+        if (!rawHref || rawHref === "#") {
             return;
         }
 
-        const target = document.querySelector(targetId);
+        const tabLinks = {
+            "#eyelashes": 0,
+            "#permanent": 1,
+            "#laser": 2,
+        };
+
+        if (tabLinks[rawHref] !== undefined) {
+            event.preventDefault();
+            if (typeof window.switchServiceTab === "function") {
+                window.switchServiceTab(tabLinks[rawHref], true);
+            }
+            const servicesSection = document.querySelector("#services");
+            if (servicesSection) {
+                servicesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+            return;
+        }
+
+        const target = document.querySelector(rawHref);
 
         if (!target) {
             return;
@@ -198,14 +329,6 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
         if (window.location.hash) {
             history.replaceState(null, "", window.location.pathname + window.location.search);
         }
-    });
-});
-
-serviceToggles.forEach((toggle) => {
-    toggle.addEventListener("click", () => {
-        const card = toggle.closest(".service-card");
-        const isOpen = card.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", String(isOpen));
     });
 });
 
