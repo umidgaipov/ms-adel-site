@@ -111,59 +111,110 @@ function syncMarqueeOffsets() {
             return;
         }
 
-        track.style.setProperty("--marquee-offset", `${-firstDuplicate.offsetLeft}px`);
         track.closest(".drag-scroll")?.style.setProperty("--marquee-loop", `${firstDuplicate.offsetLeft}px`);
     });
 }
 
-function fillReviewMarquee() {
-    const track = document.querySelector(".reviews-track");
-    const marquee = track?.closest(".reviews-marquee");
+const MARQUEE_SPEED = 38;
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (!track || !marquee) {
-        return;
-    }
+function initMarqueeAutoplay() {
+    const areas = Array.from(document.querySelectorAll(".drag-scroll"));
+    if (!areas.length) return;
 
-    const originalCards = Array.from(track.children).filter((card) => !card.classList.contains("duplicate"));
-    const firstDuplicate = track.querySelector(".duplicate");
+    areas.forEach((area) => {
+        area.dataset.paused = area.dataset.paused || "0";
+        area.addEventListener("pointerenter", () => { area.dataset.paused = "1"; });
+        area.addEventListener("pointerleave", () => { area.dataset.paused = "0"; });
+        area.addEventListener("focusin", () => { area.dataset.paused = "1"; });
+        area.addEventListener("focusout", () => { area.dataset.paused = "0"; });
+    });
 
-    if (!originalCards.length || !firstDuplicate) {
-        return;
-    }
+    let last = performance.now();
 
-    const loopWidth = firstDuplicate.offsetLeft;
-    if (loopWidth <= 0) {
-        return;
-    }
+    function tick(now) {
+        const dt = Math.min((now - last) / 1000, 0.05);
+        last = now;
 
-    const targetWidth = loopWidth * 2 + marquee.offsetWidth;
-    let safety = 0;
+        if (!document.hidden && !reducedMotion.matches) {
+            areas.forEach((area) => {
+                if (area.dataset.paused === "1" || area.dataset.dragged === "true" || area.classList.contains("is-dragging")) {
+                    return;
+                }
 
-    while (track.scrollWidth < targetWidth && safety < 10) {
-        safety++;
-        originalCards.forEach((card) => {
-            const clone = card.cloneNode(true);
-            clone.classList.add("duplicate");
-            clone.setAttribute("aria-hidden", "true");
-            clone.querySelectorAll("img").forEach((img) => {
-                img.alt = "";
+                const loopWidth = parseFloat(area.style.getPropertyValue("--marquee-loop"));
+                if (!loopWidth || loopWidth <= 0) return;
+
+                let next = area.scrollLeft + MARQUEE_SPEED * dt;
+                if (next >= loopWidth) next -= loopWidth;
+                area.scrollLeft = next;
             });
-            track.appendChild(clone);
-        });
+        }
+
+        requestAnimationFrame(tick);
     }
+
+    requestAnimationFrame(tick);
+}
+
+function fillMarquees() {
+    document.querySelectorAll(".drag-scroll").forEach((marquee) => {
+        const track = marquee.querySelector(".portfolio-track, .reviews-track");
+
+        if (!track) {
+            return;
+        }
+
+        const originalCards = Array.from(track.children).filter((card) => !card.classList.contains("duplicate"));
+        const firstDuplicate = track.querySelector(".duplicate");
+
+        if (!originalCards.length || !firstDuplicate) {
+            return;
+        }
+
+        const loopWidth = firstDuplicate.offsetLeft;
+        if (loopWidth <= 0) {
+            return;
+        }
+
+        const targetWidth = loopWidth * 2 + marquee.offsetWidth;
+        let safety = 0;
+
+        while (track.scrollWidth < targetWidth && safety < 10) {
+            safety++;
+            originalCards.forEach((card) => {
+                const clone = card.cloneNode(true);
+                clone.classList.add("duplicate");
+                clone.setAttribute("aria-hidden", "true");
+                clone.removeAttribute("aria-label");
+                clone.setAttribute("tabindex", "-1");
+                clone.querySelectorAll("img").forEach((img) => {
+                    img.alt = "";
+                });
+                track.appendChild(clone);
+            });
+        }
+    });
 }
 
 function setupMarquees() {
-    fillReviewMarquee();
+    fillMarquees();
     syncMarqueeOffsets();
+}
+
+function bootMarquees() {
+    setupMarquees();
+    initMarqueeAutoplay();
 }
 
 window.addEventListener("resize", setupMarquees);
 window.addEventListener("load", setupMarquees);
 if (document.readyState === "complete") {
-    setupMarquees();
+    bootMarquees();
+} else if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", bootMarquees);
 } else {
-    window.addEventListener("DOMContentLoaded", setupMarquees);
+    bootMarquees();
 }
 
 if (menuToggle) {
@@ -332,21 +383,32 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     });
 });
 
-portfolioItems.forEach((item) => {
-    item.addEventListener("click", (event) => {
-        if (item.closest(".drag-scroll")?.dataset.dragged === "true") {
-            event.preventDefault();
-            return;
-        }
+document.addEventListener("click", (event) => {
+    const item = event.target.closest(".portfolio-item");
+    if (!item) return;
 
-        const img = item.querySelector("img");
-        lightbox.querySelector("img").src = img.src;
-        lightbox.querySelector("img").alt = img.alt;
-        lightbox.querySelector("p").textContent = item.dataset.title || img.alt;
-        lightbox.classList.add("is-open");
-        lightbox.setAttribute("aria-hidden", "false");
-        document.body.classList.add("modal-open");
-    });
+    if (item.closest(".drag-scroll")?.dataset.dragged === "true") {
+        event.preventDefault();
+        return;
+    }
+
+    const img = item.querySelector("img");
+    if (!img || !lightbox) return;
+
+    const lightboxImg = lightbox.querySelector("img");
+    const lightboxCaption = lightbox.querySelector("p");
+
+    if (lightboxImg) {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || item.dataset.title || "";
+    }
+    if (lightboxCaption) {
+        lightboxCaption.textContent = item.dataset.title || img.alt || "";
+    }
+
+    lightbox.classList.add("is-open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
 });
 
 dragAreas.forEach((area) => {
@@ -354,6 +416,15 @@ dragAreas.forEach((area) => {
     let startScroll = 0;
     let isPointerDown = false;
     let moved = false;
+
+    area.addEventListener("scroll", () => {
+        const loopWidth = parseFloat(area.style.getPropertyValue("--marquee-loop"));
+        if (!loopWidth || loopWidth <= 0) return;
+
+        if (area.scrollLeft >= loopWidth) {
+            area.scrollLeft -= loopWidth;
+        }
+    }, { passive: true });
 
     area.addEventListener("pointerdown", (event) => {
         if (event.button !== 0) {
@@ -379,13 +450,20 @@ dragAreas.forEach((area) => {
             moved = true;
             area.dataset.dragged = "true";
         }
-        area.scrollLeft = startScroll - delta;
         const loopWidth = parseFloat(area.style.getPropertyValue("--marquee-loop"));
+        let next = startScroll - delta;
 
-        if (loopWidth > 0 && area.scrollLeft >= loopWidth) {
-            area.scrollLeft -= loopWidth;
-            startScroll -= loopWidth;
+        if (loopWidth > 0) {
+            if (next >= loopWidth) {
+                next -= loopWidth;
+                startScroll -= loopWidth;
+            } else if (next < 0) {
+                next += loopWidth;
+                startScroll += loopWidth;
+            }
         }
+
+        area.scrollLeft = next;
     });
 
     function endDrag(event) {
@@ -399,9 +477,25 @@ dragAreas.forEach((area) => {
             area.releasePointerCapture(event.pointerId);
         }
 
-        window.setTimeout(() => {
+        if (!moved) {
             area.dataset.dragged = "false";
-        }, moved ? 140 : 0);
+            return;
+        }
+
+        let calmTimer;
+        area.dataset.dragged = "true";
+
+        const settle = () => {
+            area.removeEventListener("scroll", onCalmScroll);
+            area.dataset.dragged = "false";
+        };
+
+        const onCalmScroll = () => {
+            window.clearTimeout(calmTimer);
+            calmTimer = window.setTimeout(settle, 220);
+        };
+        area.addEventListener("scroll", onCalmScroll);
+        onCalmScroll();
     }
 
     area.addEventListener("pointerup", endDrag);
