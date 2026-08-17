@@ -90,9 +90,15 @@ function fillReviewMarquee() {
     }
 
     const loopWidth = firstDuplicate.offsetLeft;
-    const targetWidth = loopWidth * 2 + marquee.offsetWidth;
+    if (loopWidth <= 0) {
+        return;
+    }
 
-    while (track.scrollWidth < targetWidth) {
+    const targetWidth = loopWidth * 2 + marquee.offsetWidth;
+    let safety = 0;
+
+    while (track.scrollWidth < targetWidth && safety < 10) {
+        safety++;
         originalCards.forEach((card) => {
             const clone = card.cloneNode(true);
             clone.classList.add("duplicate");
@@ -112,7 +118,11 @@ function setupMarquees() {
 
 window.addEventListener("resize", setupMarquees);
 window.addEventListener("load", setupMarquees);
-setupMarquees();
+if (document.readyState === "complete") {
+    setupMarquees();
+} else {
+    window.addEventListener("DOMContentLoaded", setupMarquees);
+}
 
 menuToggle.addEventListener("click", () => {
     const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
