@@ -758,6 +758,8 @@ p:last-child {
     padding: 0;
     line-height: 0;
     flex-shrink: 0;
+    mask-image: linear-gradient(to right, black 0%, black 70%, rgba(0, 0, 0, 0.6) 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 70%, rgba(0, 0, 0, 0.6) 85%, transparent 100%);
 }
 
 .hero-media img {
@@ -1739,6 +1741,8 @@ p:last-child {
         min-height: 0;
         height: 52vh;
         max-height: 460px;
+        mask-image: linear-gradient(to bottom, black 0%, black 72%, rgba(0, 0, 0, 0.6) 88%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 0%, black 72%, rgba(0, 0, 0, 0.6) 88%, transparent 100%);
     }
 
     .hero-copy {
