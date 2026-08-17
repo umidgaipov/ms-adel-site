@@ -774,12 +774,23 @@ p:last-child {
     opacity: 0.6;
 }
 
-/* Button Component Styles */
+/* -------------------------------------------------------------
+   UI Component Library — Milestone 06
+   Canonical Sources: docs/07_design_system_and_guidelines.md,
+   docs/DESIGN.md & GEMINI.MD (5 UI States & Soft Premium)
+   ------------------------------------------------------------- */
+
+/* =============================================================
+   1. Buttons (.btn / .button) & 5 UI States
+   ============================================================= */
+
+.btn,
 .button {
     display: inline-flex;
-    min-height: 56px;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+    min-height: 56px;
     padding: 16px 32px;
     border: 1px solid transparent;
     border-radius: var(--radius-lg);
@@ -790,17 +801,82 @@ p:last-child {
     line-height: 1.2;
     text-align: center;
     text-transform: uppercase;
-    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.25s ease,
+                border-color 0.25s ease,
+                color 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                opacity 0.25s ease;
 }
 
-.button:hover {
-    transform: translateY(-1px);
+/* Button Sizing */
+.btn-lg,
+.button-lg {
+    min-height: 60px;
+    padding: 18px 36px;
+    font-size: 14px;
+    border-radius: 20px;
 }
 
-.button:active {
-    transform: scale(0.98);
+.btn-md,
+.button-md {
+    min-height: 48px;
+    padding: 12px 24px;
+    font-size: 12px;
+    border-radius: 16px;
 }
 
+.btn-sm,
+.button-sm {
+    min-height: 44px; /* Accessible touch target >= 44px */
+    padding: 10px 18px;
+    font-size: 11px;
+    border-radius: 12px;
+}
+
+.btn-icon,
+.button-icon {
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    border-radius: var(--radius-full);
+}
+
+.btn-icon-lg,
+.button-icon-lg {
+    width: 56px;
+    height: 56px;
+    min-height: 56px;
+    padding: 0;
+    border-radius: var(--radius-full);
+}
+
+.btn-icon-sm,
+.button-icon-sm {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    border-radius: var(--radius-full);
+}
+
+.btn-full,
+.button-full {
+    width: 100%;
+}
+
+/* Button Variants */
+/* Primary: Chocolate fill -> Powder/Rose hover */
+.btn-primary,
 .button-primary {
     color: var(--color-bg-primary);
     background-color: var(--color-text-primary);
@@ -808,35 +884,213 @@ p:last-child {
     box-shadow: var(--shadow-soft);
 }
 
+.btn-primary:hover,
 .button-primary:hover {
     background-color: var(--color-accent-hover);
     border-color: var(--color-accent-hover);
     color: var(--color-text-primary);
+    box-shadow: var(--shadow-hover);
 }
 
+/* Secondary: Warm Beige fill -> Rose hover */
+.btn-secondary,
+.button-secondary {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-card);
+    border-color: transparent;
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-secondary:hover,
+.button-secondary:hover {
+    background-color: var(--color-accent-hover);
+    border-color: transparent;
+    color: var(--color-text-primary);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Outline: Crisp subtle border -> Chocolate fill hover */
+.btn-outline,
 .button-outline {
     color: var(--color-text-primary);
     background-color: transparent;
     border-color: var(--color-border);
 }
 
+.btn-outline:hover,
 .button-outline:hover {
     color: var(--color-bg-primary);
     background-color: var(--color-text-primary);
     border-color: var(--color-text-primary);
-}
-
-.button-accent {
-    border-color: var(--color-text-primary);
-    color: var(--color-bg-primary);
-    background-color: var(--color-text-primary);
     box-shadow: var(--shadow-soft);
 }
 
+/* Accent: Chocolate / Rose emphasis */
+.btn-accent,
+.button-accent {
+    color: var(--color-bg-primary);
+    background-color: var(--color-text-primary);
+    border-color: var(--color-text-primary);
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-accent:hover,
 .button-accent:hover {
-    border-color: var(--color-accent-hover);
     background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
     color: var(--color-text-primary);
+}
+
+/* Ghost: Seamless minimal action */
+.btn-ghost,
+.button-ghost {
+    color: var(--color-text-primary);
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.btn-ghost:hover,
+.button-ghost:hover {
+    background-color: rgba(92, 67, 56, 0.08);
+    color: var(--color-text-primary);
+}
+
+/* Micro-States (Anti-AI Slop Tactility) */
+.btn:hover,
+.button:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active,
+.button:active {
+    transform: scale(0.98);
+}
+
+.btn:focus-visible,
+.button:focus-visible {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 3px;
+}
+
+/* Disabled State (4th UI State) */
+.btn:disabled,
+.button:disabled,
+.btn.is-disabled,
+.button.is-disabled {
+    opacity: 0.45;
+    pointer-events: none;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Loading State (5th UI State) */
+.btn.is-loading,
+.button.is-loading {
+    pointer-events: none;
+    cursor: wait;
+    position: relative;
+    color: transparent !important;
+}
+
+.btn.is-loading::after,
+.button.is-loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: btn-spinner 0.75s linear infinite;
+}
+
+.btn-primary.is-loading::after,
+.button-primary.is-loading::after,
+.btn-accent.is-loading::after,
+.button-accent.is-loading::after {
+    border-color: var(--color-bg-primary);
+    border-right-color: transparent;
+}
+
+.btn-secondary.is-loading::after,
+.button-secondary.is-loading::after,
+.btn-outline.is-loading::after,
+.button-outline.is-loading::after,
+.btn-ghost.is-loading::after,
+.button-ghost.is-loading::after {
+    border-color: var(--color-text-primary);
+    border-right-color: transparent;
+}
+
+@keyframes btn-spinner {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =============================================================
+   2. Card Component Surfaces & Geometries
+   ============================================================= */
+
+.card,
+.card-surface {
+    background-color: var(--color-surface-card);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+    padding: clamp(24px, 3.5vw, 32px);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--color-border-subtle);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.3s ease;
+}
+
+.card-beige {
+    background-color: var(--color-surface-card);
+}
+
+.card-white {
+    background-color: var(--color-surface-white);
+    border-color: var(--color-border-subtle);
+}
+
+.card-powder {
+    background-color: var(--color-bg-secondary);
+    border-color: transparent;
+}
+
+.card-chocolate,
+.card-dark {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+    border-color: transparent;
+}
+
+.card-chocolate h1,
+.card-chocolate h2,
+.card-chocolate h3,
+.card-chocolate h4,
+.card-chocolate .eyebrow,
+.card-dark h1,
+.card-dark h2,
+.card-dark h3,
+.card-dark h4,
+.card-dark .eyebrow {
+    color: var(--color-bg-primary);
+}
+
+.card-chocolate p,
+.card-dark p {
+    color: rgba(248, 245, 242, 0.82);
 }
 
 .card-padded {
@@ -845,6 +1099,122 @@ p:last-child {
 
 .card-padded-lg {
     padding: clamp(32px, 5vw, 48px);
+}
+
+.card-interactive {
+    cursor: pointer;
+}
+
+.card-interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-border);
+}
+
+.card-interactive:active {
+    transform: translateY(-2px) scale(0.99);
+}
+
+/* =============================================================
+   3. Badges, Eyebrows, Tags & Overlines
+   ============================================================= */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    min-height: 28px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+    background-color: var(--color-surface-card);
+    color: var(--color-text-primary);
+    border: 1px solid transparent;
+}
+
+.badge-powder {
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+}
+
+.badge-beige {
+    background-color: var(--color-surface-card);
+    color: var(--color-text-primary);
+}
+
+.badge-chocolate {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+}
+
+.badge-outline {
+    background-color: transparent;
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.badge-rose {
+    background-color: var(--color-accent-hover);
+    color: var(--color-text-primary);
+}
+
+/* =============================================================
+   4. Skeletons & Loading Indicators (Layout-stable, CLS = 0)
+   ============================================================= */
+
+.skeleton {
+    display: block;
+    background: linear-gradient(
+        90deg,
+        rgba(92, 67, 56, 0.06) 25%,
+        rgba(92, 67, 56, 0.12) 37%,
+        rgba(92, 67, 56, 0.06) 63%
+    );
+    background-size: 400% 100%;
+    animation: skeleton-shimmer 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    border-radius: var(--radius-md);
+}
+
+.skeleton-text {
+    height: 16px;
+    margin-bottom: 8px;
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-text:last-child {
+    margin-bottom: 0;
+    width: 75%;
+}
+
+.skeleton-title {
+    height: 28px;
+    margin-bottom: 14px;
+    width: 60%;
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-circle {
+    border-radius: var(--radius-full);
+}
+
+.skeleton-card {
+    min-height: 220px;
+    border-radius: var(--radius-xl);
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
 }
 
 .section-grid,
