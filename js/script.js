@@ -383,6 +383,24 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     });
 });
 
+document.querySelectorAll(".faq-question").forEach((btn) => {
+    const item = btn.closest(".faq-item");
+    if (!item) return;
+
+    btn.addEventListener("click", () => {
+        const expanded = btn.getAttribute("aria-expanded") === "true";
+        document.querySelectorAll(".faq-item.is-open").forEach((openItem) => {
+            if (openItem !== item) {
+                openItem.classList.remove("is-open");
+                openItem.querySelector(".faq-question")?.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        btn.setAttribute("aria-expanded", String(!expanded));
+        item.classList.toggle("is-open", !expanded);
+    });
+});
+
 document.addEventListener("click", (event) => {
     const item = event.target.closest(".portfolio-item");
     if (!item) return;

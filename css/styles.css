@@ -2189,6 +2189,100 @@ p:last-child {
 }
 
 /* -------------------------------------------------------------
+   12. FAQ Section (Accessible Accordion)
+   ------------------------------------------------------------- */
+.faq-section {
+    background-color: var(--color-bg-primary);
+    border-top: 1px solid var(--color-border-subtle);
+    padding-block: clamp(64px, 8vw, 120px);
+}
+
+.faq-list {
+    display: grid;
+    gap: 14px;
+    max-width: 760px;
+    margin: clamp(28px, 4vw, 44px) auto 0;
+}
+
+.faq-item {
+    background-color: var(--color-surface-card);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.faq-item.is-open {
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-hover);
+}
+
+.faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-height: 56px;
+    padding: 18px 22px;
+    border: 0;
+    background: transparent;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--color-text-primary);
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.faq-question:hover {
+    color: var(--color-text-primary);
+    background-color: rgba(223, 168, 183, 0.12);
+}
+
+.faq-question:focus-visible {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: -2px;
+    border-radius: calc(var(--radius-lg) - 4px);
+}
+
+.faq-chevron {
+    flex-shrink: 0;
+    color: var(--color-text-secondary);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-question[aria-expanded="true"] .faq-chevron {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-item.is-open .faq-answer {
+    grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.faq-answer-inner p {
+    margin: 0;
+    padding: 0 22px 18px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+/* -------------------------------------------------------------
    13. Location Section
    ------------------------------------------------------------- */
 .location-section {
