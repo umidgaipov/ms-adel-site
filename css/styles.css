@@ -2752,18 +2752,17 @@ p:last-child {
     .hero-actions { flex-direction: column; }
     .hero-btn-cta, .button, .btn { width: 100%; }
     .contact-actions {
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: nowrap;
-        justify-content: center;
+        align-items: center;
+        max-width: 300px;
+        margin-inline: auto;
     }
     .contact-actions .contact-button {
-        width: auto;
-        flex: 1 1 0;
-        min-width: 0;
-        padding: 12px 6px;
-        font-size: 11px;
-        letter-spacing: 0.05em;
-        white-space: nowrap;
+        flex: none;
+        min-height: 48px;
+        padding: 12px 20px;
+        letter-spacing: 0.06em;
     }
     .hero-note { justify-content: center; text-align: center; }
     .review-card { width: 290px; }
