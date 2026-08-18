@@ -1347,14 +1347,18 @@ p:last-child {
 
 .portfolio-rows {
     width: 100%;
-    display: grid;
-    gap: 32px;
     margin-top: clamp(28px, 4vw, 44px);
 }
 
 .portfolio-row {
     width: min(100% - 32px, var(--container-max-width, 1240px));
-    margin: 0 auto;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0 auto 32px;
+}
+
+.portfolio-row:last-child {
+    margin-bottom: 0;
 }
 
 .portfolio-marquee {
