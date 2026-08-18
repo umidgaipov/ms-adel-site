@@ -749,6 +749,7 @@ p:last-child {
     position: relative;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
 }
 
@@ -774,11 +775,11 @@ p:last-child {
 }
 
 .menu-toggle[aria-expanded="true"] span:first-child {
-    transform: translateY(3px) rotate(45deg);
+    transform: translateY(5px) rotate(45deg);
 }
 
 .menu-toggle[aria-expanded="true"] span:last-child {
-    transform: translateY(-3px) rotate(-45deg);
+    transform: translateY(-5px) rotate(-45deg);
 }
 
 /* Mobile Menu Panel */
@@ -2670,7 +2671,8 @@ p:last-child {
         gap: 36px;
     }
 
-    .section-grid {
+    .section-grid,
+    .about .section-grid {
         grid-template-columns: 1fr;
         gap: 40px;
     }
@@ -2747,8 +2749,22 @@ p:last-child {
     }
     .service-cta-actions { flex-direction: column; }
     .service-cta-actions .button { width: 100%; min-width: 0; }
-    .hero-actions, .contact-actions { flex-direction: column; }
+    .hero-actions { flex-direction: column; }
     .hero-btn-cta, .button, .btn { width: 100%; }
+    .contact-actions {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+    .contact-actions .contact-button {
+        width: auto;
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 12px 6px;
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+    }
     .hero-note { justify-content: center; text-align: center; }
     .review-card { width: 290px; }
     .footer { flex-direction: column; text-align: center; }
