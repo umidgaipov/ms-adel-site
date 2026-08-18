@@ -2545,20 +2545,35 @@ p:last-child {
 
 .lightbox.is-open {
     display: flex;
+    animation: lightbox-fade-in 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes lightbox-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .lightbox img {
+    width: auto;
+    height: auto;
     max-width: min(100%, 1100px);
     max-height: 82vh;
+    min-width: min(280px, 100%);
+    aspect-ratio: 4 / 3;
     object-fit: contain;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
+    background-color: rgba(248, 245, 242, 0.08);
 }
 
 .lightbox p {
     position: fixed;
     right: 24px;
-    bottom: 20px;
+    bottom: max(20px, env(safe-area-inset-bottom));
     left: 24px;
     margin: 0;
     color: #FFFFFF;
@@ -2575,11 +2590,27 @@ p:last-child {
     width: 44px;
     height: 44px;
     border: 0;
+    border-radius: 50%;
     color: #FFFFFF;
-    background: transparent;
+    background: rgba(248, 245, 242, 0.14);
     font-size: 36px;
     line-height: 1;
     cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.lightbox-close:hover {
+    background: rgba(248, 245, 242, 0.26);
+    transform: translateY(-1px);
+}
+
+.lightbox-close:active {
+    transform: scale(0.98);
+}
+
+.lightbox-close:focus-visible {
+    outline: 2px solid var(--color-accent-hover);
+    outline-offset: 3px;
 }
 
 .reveal {
