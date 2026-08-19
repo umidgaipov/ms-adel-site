@@ -1628,6 +1628,10 @@ p:last-child {
     box-shadow: var(--shadow-soft);
 }
 
+.service-lead .service-subcard {
+    margin-top: 16px;
+}
+
 .service-benefits-title {
     font-family: var(--font-heading);
     font-size: 15px;
