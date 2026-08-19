@@ -6,10 +6,18 @@ const portfolioItems = document.querySelectorAll(".portfolio-item");
 const dragAreas = document.querySelectorAll(".drag-scroll");
 const lightbox = document.querySelector("#lightbox");
 const heroImage = document.querySelector(".hero-media img");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+let isScrolled = false;
+let scrollTicking = false;
 
 function setHeaderState() {
     if (!header) return;
-    header.classList.toggle("is-scrolled", window.scrollY > 24);
+    const scrolled = window.scrollY > 24;
+    if (scrolled !== isScrolled) {
+        isScrolled = scrolled;
+        header.classList.toggle("is-scrolled", isScrolled);
+    }
 }
 
 function openMobileMenu() {
@@ -92,8 +100,8 @@ function closeLightbox() {
 }
 
 function updateHeroParallax() {
-    if (!heroImage || window.matchMedia("(max-width: 980px)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        if (heroImage) {
+    if (!heroImage || window.innerWidth <= 980 || reducedMotion.matches) {
+        if (heroImage && heroImage.style.transform) {
             heroImage.style.transform = "";
         }
         return;
@@ -103,11 +111,18 @@ function updateHeroParallax() {
     heroImage.style.transform = `translateY(${offset}px) scale(1.02)`;
 }
 
-window.addEventListener("scroll", setHeaderState, { passive: true });
-setHeaderState();
+function onScroll() {
+    if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+            setHeaderState();
+            updateHeroParallax();
+            scrollTicking = false;
+        });
+        scrollTicking = true;
+    }
+}
 
-window.addEventListener("scroll", updateHeroParallax, { passive: true });
-updateHeroParallax();
+window.addEventListener("scroll", onScroll, { passive: true });
 
 window.addEventListener("resize", () => {
     if (window.innerWidth > 980 && mobileMenu?.classList.contains("is-open")) {
@@ -118,17 +133,12 @@ window.addEventListener("resize", () => {
 function syncMarqueeOffsets() {
     document.querySelectorAll(".portfolio-track, .reviews-track").forEach((track) => {
         const firstDuplicate = track.querySelector(".duplicate");
-
-        if (!firstDuplicate) {
-            return;
-        }
-
+        if (!firstDuplicate) return;
         track.closest(".drag-scroll")?.style.setProperty("--marquee-loop", `${firstDuplicate.offsetLeft}px`);
     });
 }
 
 const MARQUEE_SPEED = 38;
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 function initMarqueeAutoplay() {
     const areas = Array.from(document.querySelectorAll(".drag-scroll"));
@@ -172,27 +182,24 @@ function initMarqueeAutoplay() {
 function fillMarquees() {
     document.querySelectorAll(".drag-scroll").forEach((marquee) => {
         const track = marquee.querySelector(".portfolio-track, .reviews-track");
-
-        if (!track) {
-            return;
-        }
+        if (!track) return;
 
         const originalCards = Array.from(track.children).filter((card) => !card.classList.contains("duplicate"));
         const firstDuplicate = track.querySelector(".duplicate");
-
-        if (!originalCards.length || !firstDuplicate) {
-            return;
-        }
+        if (!originalCards.length || !firstDuplicate) return;
 
         const loopWidth = firstDuplicate.offsetLeft;
-        if (loopWidth <= 0) {
-            return;
-        }
+        if (loopWidth <= 0) return;
 
-        const targetWidth = loopWidth * 2 + marquee.offsetWidth;
+        const neededWidth = loopWidth * 2 + marquee.offsetWidth;
+        const currentWidth = track.scrollWidth;
+        if (currentWidth >= neededWidth) return;
+
+        const fragment = document.createDocumentFragment();
+        let addedWidth = 0;
         let safety = 0;
 
-        while (track.scrollWidth < targetWidth && safety < 10) {
+        while (currentWidth + addedWidth < neededWidth && safety < 3) {
             safety++;
             originalCards.forEach((card) => {
                 const clone = card.cloneNode(true);
@@ -203,9 +210,12 @@ function fillMarquees() {
                 clone.querySelectorAll("img").forEach((img) => {
                     img.alt = "";
                 });
-                track.appendChild(clone);
+                fragment.appendChild(clone);
             });
+            addedWidth += loopWidth;
         }
+
+        track.appendChild(fragment);
     });
 }
 
@@ -219,15 +229,16 @@ function bootMarquees() {
     initMarqueeAutoplay();
 }
 
-window.addEventListener("resize", setupMarquees);
-window.addEventListener("load", setupMarquees);
-if (document.readyState === "complete") {
-    bootMarquees();
-} else if (document.readyState === "loading") {
-    window.addEventListener("DOMContentLoaded", bootMarquees);
-} else {
-    bootMarquees();
+function deferBootMarquees() {
+    if ("requestIdleCallback" in window) {
+        requestIdleCallback(bootMarquees, { timeout: 1500 });
+    } else {
+        setTimeout(bootMarquees, 150);
+    }
 }
+
+window.addEventListener("resize", setupMarquees, { passive: true });
+window.addEventListener("load", deferBootMarquees, { once: true });
 
 if (menuToggle) {
     menuToggle.addEventListener("click", toggleMobileMenu);
@@ -296,8 +307,9 @@ function initDirectionAwareTabs() {
 
                 if (animate) {
                     panel.classList.remove("slide-in-right", "slide-in-left");
-                    void panel.offsetWidth;
-                    panel.classList.add(direction === "right" ? "slide-in-right" : "slide-in-left");
+                    requestAnimationFrame(() => {
+                        panel.classList.add(direction === "right" ? "slide-in-right" : "slide-in-left");
+                    });
                 }
             } else {
                 panel.classList.remove("is-active", "slide-in-right", "slide-in-left");
@@ -337,13 +349,12 @@ function initDirectionAwareTabs() {
 
     window.addEventListener("resize", () => {
         updateIndicator(tabButtons[currentIndex]);
-    });
+    }, { passive: true });
 
-    // Initial positioning
-    updateIndicator(tabButtons[currentIndex]);
-    setTimeout(() => {
+    // Initial positioning in rAF without blocking
+    requestAnimationFrame(() => {
         updateIndicator(tabButtons[currentIndex]);
-    }, 120);
+    });
 
     window.switchServiceTab = switchTab;
 }

@@ -965,7 +965,6 @@ p:last-child {
     object-position: center top;
     aspect-ratio: 4 / 5;
     filter: none;
-    will-change: transform;
 }
 
 .hero-copy {
@@ -1505,7 +1504,8 @@ p:last-child {
     box-shadow: 0 4px 14px rgba(92, 67, 56, 0.12);
     pointer-events: none;
     z-index: 1;
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .tab-btn {

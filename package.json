@@ -1,0 +1,14 @@
+{
+  "name": "ms-adel-site",
+  "version": "2.0.0",
+  "description": "Ms. Adel beauty master landing website",
+  "scripts": {
+    "build:css": "npx csso-cli css/styles.css -o css/styles.min.css",
+    "build:js": "npx terser js/script.js -o js/script.min.js --compress --mangle",
+    "build": "npm run build:css && npm run build:js"
+  },
+  "devDependencies": {
+    "csso-cli": "^5.0.5",
+    "terser": "^5.39.0"
+  }
+}
