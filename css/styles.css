@@ -664,12 +664,29 @@ p:last-child {
     color: var(--color-text-primary);
     display: inline-flex;
     align-items: center;
+    gap: 12px;
     text-decoration: none;
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.brand-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 1.5px solid var(--color-border-subtle);
+    box-shadow: var(--shadow-soft);
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease;
+}
+
 .brand:hover {
     opacity: 0.85;
+}
+
+.brand:hover .brand-avatar {
+    transform: scale(1.06);
+    border-color: var(--color-accent-hover);
 }
 
 .brand:focus-visible {
@@ -2768,7 +2785,8 @@ p:last-child {
 }
 
 @media (max-width: 680px) {
-    .brand { font-size: 22px; }
+    .brand { font-size: 22px; gap: 10px; }
+    .brand-avatar { width: 32px; height: 32px; }
     .tabs-nav-wrapper {
         justify-content: center;
         overflow-x: auto;
