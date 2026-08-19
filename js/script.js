@@ -93,7 +93,10 @@ function closeLightbox() {
 }
 
 function updateHeroParallax() {
-    if (!heroImage || window.matchMedia("(max-width: 980px)").matches) {
+    if (!heroImage || window.matchMedia("(max-width: 980px)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        if (heroImage) {
+            heroImage.style.transform = "";
+        }
         return;
     }
 

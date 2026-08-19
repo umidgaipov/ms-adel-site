@@ -2625,6 +2625,39 @@ p:last-child {
     transform: translateY(0);
 }
 
+/* M14: Cascading entrance for grids & lists (GPU-friendly: opacity + transform only) */
+@keyframes cascade-rise {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+}
+
+:is(.reveal.is-visible :is(.about-bento, .location-photo-grid, .training-guarantee-list),
+.reveal.is-visible:is(.why-grid, .faq-list, .portfolio-rows, .service-cards-grid),
+.tab-panel.is-active :is(.service-cards-grid, .service-benefits-list, .procedure-steps-list)) > * {
+    animation: cascade-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: var(--cascade-delay, 0s);
+}
+
+:is(.reveal.is-visible :is(.about-bento, .location-photo-grid, .training-guarantee-list),
+.reveal.is-visible:is(.why-grid, .faq-list, .portfolio-rows, .service-cards-grid),
+.tab-panel.is-active :is(.service-cards-grid, .service-benefits-list, .procedure-steps-list)) > :nth-child(2) {
+    --cascade-delay: 60ms;
+}
+
+:is(.reveal.is-visible :is(.about-bento, .location-photo-grid, .training-guarantee-list),
+.reveal.is-visible:is(.why-grid, .faq-list, .portfolio-rows, .service-cards-grid),
+.tab-panel.is-active :is(.service-cards-grid, .service-benefits-list, .procedure-steps-list)) > :nth-child(3) {
+    --cascade-delay: 120ms;
+}
+
+:is(.reveal.is-visible :is(.about-bento, .location-photo-grid, .training-guarantee-list),
+.reveal.is-visible:is(.why-grid, .faq-list, .portfolio-rows, .service-cards-grid),
+.tab-panel.is-active :is(.service-cards-grid, .service-benefits-list, .procedure-steps-list)) > :nth-child(4) {
+    --cascade-delay: 180ms;
+}
+
 /* -------------------------------------------------------------
    16. Responsive Media Queries
    ------------------------------------------------------------- */
@@ -2791,7 +2824,14 @@ p:last-child {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
+        animation-delay: 0ms !important;
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
     }
 }
