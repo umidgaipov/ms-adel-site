@@ -1,7 +1,7 @@
 {
   "name": "ms-adel-site",
   "version": "2.0.0",
-  "description": "Сайт мастера Адели — Бьюти-услуги и авторское обучение в Ташкенте",
+  "description": "Сайт Ms. Adel — Бьюти-услуги и авторское обучение в Ташкенте",
   "scripts": {
     "minify:css": "npx csso-cli css/styles.css -o css/styles.min.css",
     "minify:js": "npx terser js/script.js -o js/script.min.js --compress --mangle",
