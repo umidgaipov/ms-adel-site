@@ -665,8 +665,14 @@ p:last-child {
     display: inline-flex;
     align-items: center;
     gap: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
     text-decoration: none;
     transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.brand span {
+    white-space: nowrap;
 }
 
 .brand-avatar {
@@ -698,18 +704,21 @@ p:last-child {
 .nav {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: clamp(8px, 1.3vw, 20px);
+    flex-wrap: nowrap;
 }
 
 .nav a {
     position: relative;
     font-family: var(--font-heading);
-    font-size: 13px;
+    font-size: clamp(11.5px, 0.9vw, 13px);
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
     padding: 6px 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
     transition: color 0.25s ease;
 }
 

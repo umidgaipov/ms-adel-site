@@ -318,28 +318,50 @@ p:last-child {
     color: var(--color-text-primary);
     display: inline-flex;
     align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
     text-decoration: none;
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.brand span {
+    white-space: nowrap;
+}
+
+.brand-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 1.5px solid var(--color-border-subtle);
+    box-shadow: var(--shadow-soft);
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease;
+}
+
 .brand:hover { opacity: 0.85; }
+.brand:hover .brand-avatar { transform: scale(1.06); border-color: var(--color-accent-hover); }
 .brand:focus-visible { outline: 2px solid var(--color-text-primary); outline-offset: 4px; border-radius: var(--radius-sm); }
 
 .nav {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: clamp(8px, 1.3vw, 20px);
+    flex-wrap: nowrap;
 }
 
 .nav a {
     position: relative;
     font-family: var(--font-heading);
-    font-size: 13px;
+    font-size: clamp(11.5px, 0.9vw, 13px);
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
     padding: 6px 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
     transition: color 0.25s ease;
 }
 
