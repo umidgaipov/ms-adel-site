@@ -14,8 +14,8 @@
     --color-surface-card: #EADCCF;     /* Warm beige */
     --color-surface-white: #FFFFFF;    /* Pure white */
     --color-text-primary: #5C4338;     /* Deep warm chocolate */
-    --color-text-secondary: #7A665D;   /* Muted chocolate */
-    --color-text-muted: #9E8C83;       /* Subtle tertiary */
+    --color-text-secondary: #6E594E;   /* Muted chocolate (WCAG AA ≥ 4.5:1 on beige/powder/milk) */
+    --color-text-muted: #715C51;       /* Subtle tertiary (WCAG AA ≥ 4.5:1 on beige/powder/milk) */
     --color-accent-hover: #DFA8B7;     /* Dusty rose */
     --color-border: #D8C7B8;          /* Structural border */
     --color-border-subtle: #E8DDD2;   /* Card / line border */
@@ -133,6 +133,13 @@ a {
     text-decoration: none;
 }
 
+a:focus-visible,
+summary:focus-visible,
+[tabindex="0"]:focus-visible {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 3px;
+}
+
 button {
     font: inherit;
 }
@@ -209,7 +216,7 @@ p:last-child {
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    opacity: 0.75;
+    opacity: 0.85;
 }
 
 /* -------------------------------------------------------------
@@ -897,6 +904,7 @@ p:last-child {
     display: inline-flex;
     align-items: center;
     gap: 10px;
+    min-height: 44px;
     font-size: 14px;
     font-weight: 500;
     color: var(--color-text-secondary);
@@ -1444,7 +1452,7 @@ p:last-child {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     display: inline-block;
     padding: 4px 10px;
-    background: rgba(92, 67, 56, 0.55);
+    background: rgba(92, 67, 56, 0.8);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     border-radius: var(--radius-sm);
@@ -1518,6 +1526,7 @@ p:last-child {
     line-height: 1;
     cursor: pointer;
     white-space: nowrap;
+    min-height: 44px;
     transition: color 0.25s ease;
 }
 
@@ -2421,13 +2430,13 @@ p:last-child {
 }
 
 .map-button-yandex {
-    background: linear-gradient(135deg, #ff3b30 0%, #d71920 100%);
+    background: linear-gradient(135deg, #e02b20 0%, #d71920 100%);
     color: #FFFFFF;
     border: 0;
 }
 
 .map-button-google {
-    background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc05 100%);
+    background: linear-gradient(135deg, #1967d2 0%, #188038 100%);
     color: #FFFFFF;
     border: 0;
 }
@@ -2463,9 +2472,9 @@ p:last-child {
     color: #FFFFFF;
 }
 
-.contact-button.telegram { background: #229ed9; }
-.contact-button.instagram { background: linear-gradient(135deg, #feda75 0%, #fa7e1e 28%, #d62976 58%, #962fbf 78%, #4f5bd5 100%); }
-.contact-button.phone { background: #2fa86b; }
+.contact-button.telegram { background: #1273b3; }
+.contact-button.instagram { background: linear-gradient(135deg, #c13584 0%, #833ab4 100%); }
+.contact-button.phone { background: #1d7a46; }
 
 .contact-button:hover {
     color: #FFFFFF;
@@ -2524,7 +2533,7 @@ p:last-child {
 }
 
 .maker-badge strong {
-    color: #d54a2f;
+    color: #c33d1e;
     font-weight: 700;
 }
 

@@ -24,6 +24,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <script defer src="js/script.js"></script>
+    <noscript><style>.reveal { opacity: 1; transform: none; }</style></noscript>
 </head>
 <body>
     <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -86,7 +87,7 @@
     </div>
 
     <main id="main">
-        <section class="hero" id="hero">
+        <section class="hero" id="hero" aria-label="Первый экран">
             <div class="hero-media">
                 <img src="assets/images/main/hero.webp" alt="Ms. Adel — сертифицированный beauty-мастер и преподаватель" width="720" height="900" fetchpriority="high" loading="eager" decoding="async">
             </div>
@@ -98,7 +99,7 @@
                     <a class="button button-secondary" href="#training">Обучение</a>
                     <a class="button button-primary hero-btn-cta" href="https://t.me/MisssAdel" target="_blank" rel="noopener noreferrer">Записаться в Telegram</a>
                 </div>
-                <div class="hero-note" aria-label="Стаж и специализация">
+                <div class="hero-note">
                     <span>10+ лет практики</span>
                     <span>5000+ довольных клиентов</span>
                     <span>Ресницы · Перманент · Лазер · Обучение</span>
@@ -106,7 +107,7 @@
             </div>
         </section>
 
-        <section class="section about" id="about">
+        <section class="section about" id="about" aria-label="О мастере">
             <div class="section-grid">
                 <div class="reveal">
                     <p class="eyebrow">О мастере</p>
@@ -148,7 +149,7 @@
         </section>
 
         <!-- 03. Services Section with Direction-Aware Tabs -->
-        <section class="section services-tabs-section" id="services">
+        <section class="section services-tabs-section" id="services" aria-label="Услуги и прайс">
             <div class="container">
                 <div class="section-heading reveal">
                     <p class="eyebrow">Прайс и процедуры</p>
@@ -438,7 +439,7 @@
         </section>
 
         <!-- 07. Training Section -->
-        <section class="section service-section section-chocolate" id="training">
+        <section class="section service-section section-chocolate" id="training" aria-label="Обучение мастеров">
             <div class="container">
                 <div class="service-layout">
                     <div class="service-lead reveal">
@@ -502,7 +503,7 @@
         </section>
 
         <!-- 08. Why Ms. Adel Section (Преимущества и стандарты) -->
-        <section class="section why-section" id="why">
+        <section class="section why-section" id="why" aria-label="Преимущества">
             <div class="container">
                 <div class="section-heading reveal">
                     <p class="eyebrow">Стандарты работы · Ценности</p>
@@ -574,7 +575,7 @@
         </section>
 
         <!-- 09. Portfolio Section -->
-        <section class="section portfolio" id="portfolio">
+        <section class="section portfolio" id="portfolio" aria-label="Портфолио работ">
             <div class="container">
                 <div class="section-heading reveal">
                     <p class="eyebrow">Портфолио работ</p>
@@ -585,7 +586,7 @@
 
             <div class="portfolio-rows reveal">
                 <div class="portfolio-row">
-                    <div class="portfolio-marquee drag-scroll" aria-label="Портфолио: Ресницы (горизонтальный скролл)">
+                    <div class="portfolio-marquee drag-scroll" role="group" aria-label="Портфолио: Ресницы (горизонтальный скролл)">
                         <div class="portfolio-track">
                             <button class="portfolio-item" type="button" data-title="Классическое наращивание ресниц · Натуральный эффект" aria-label="Открыть фото: Классическое наращивание ресниц">
                                 <img src="assets/images/Портфолио/Ресницы/ПортфолиоРесницы1.webp" alt="Классическое наращивание ресниц" width="320" height="240" loading="lazy" decoding="async">
@@ -640,7 +641,7 @@
                 </div>
 
                 <div class="portfolio-row">
-                    <div class="portfolio-marquee drag-scroll" aria-label="Портфолио: Перманентный макияж (горизонтальный скролл)">
+                    <div class="portfolio-marquee drag-scroll" role="group" aria-label="Портфолио: Перманентный макияж (горизонтальный скролл)">
                         <div class="portfolio-track">
                             <button class="portfolio-item" type="button" data-title="Пудровое напыление бровей · Воздушный пиксельный градиент" aria-label="Открыть фото: Пудровое напыление">
                                 <img src="assets/images/Портфолио/Перманент/ПортфолиоПерманент1.webp" alt="Пудровое напыление бровей" width="320" height="240" loading="lazy" decoding="async">
@@ -695,7 +696,7 @@
                 </div>
 
                 <div class="portfolio-row">
-                    <div class="portfolio-marquee drag-scroll" aria-label="Портфолио: Лазерная эпиляция (горизонтальный скролл)">
+                    <div class="portfolio-marquee drag-scroll" role="group" aria-label="Портфолио: Лазерная эпиляция (горизонтальный скролл)">
                         <div class="portfolio-track">
                             <button class="portfolio-item" type="button" data-title="Лазерная эпиляция · Подмышечные впадины" aria-label="Открыть фото: Лазерная эпиляция подмышек">
                                 <img src="assets/images/Портфолио/Лазер/ПортфолиоЛазер1.webp" alt="Лазерная эпиляция подмышек" width="320" height="240" loading="lazy" decoding="async">
@@ -752,7 +753,7 @@
         </section>
 
         <!-- 10. Reviews Section -->
-        <section class="section reviews" id="reviews">
+        <section class="section reviews" id="reviews" aria-label="Отзывы клиентов">
             <div class="container">
                 <div class="section-heading reveal">
                     <p class="eyebrow">Отзывы клиенток · 2ГИС</p>
@@ -761,7 +762,7 @@
                 </div>
             </div>
 
-            <div class="reviews-marquee drag-scroll" aria-label="Отзывы клиентов (горизонтальный скролл)">
+            <div class="reviews-marquee drag-scroll" role="group" aria-label="Отзывы клиентов (горизонтальный скролл)">
                 <div class="reviews-track">
                     <article class="review-card">
                         <div class="review-card-header">
@@ -1056,7 +1057,7 @@
         </section>
 
         <!-- 11. FAQ Section (Accordion) -->
-        <section class="section faq-section" id="faq">
+        <section class="section faq-section" id="faq" aria-label="Частые вопросы">
             <div class="container">
                 <div class="section-heading reveal">
                     <p class="eyebrow">Частые вопросы</p>
@@ -1092,9 +1093,9 @@
             </div>
         </section>
 
-        <section class="section location-section" id="location">
+        <section class="section location-section" id="location" aria-label="Локация студии">
             <div class="location-shell">
-                <div class="location-gallery reveal" aria-label="Атмосфера салона The Glow Up">
+                <div class="location-gallery reveal">
                     <div class="location-kicker">
                         <p class="eyebrow">Локация</p>
                         <h2>Салон красоты</h2>
@@ -1146,7 +1147,7 @@
             </div>
         </section>
 
-        <section class="section contacts" id="contacts">
+        <section class="section contacts" id="contacts" aria-label="Контакты">
             <div class="contact-box reveal">
                 <p class="eyebrow">Контакты</p>
                 <h2>Свяжитесь со мной</h2>

@@ -396,7 +396,7 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
             }
             const servicesSection = document.querySelector("#services");
             if (servicesSection) {
-                servicesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+                servicesSection.scrollIntoView({ behavior: smoothScrollBehavior(), block: "start" });
             }
             return;
         }
@@ -408,7 +408,7 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
         }
 
         event.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        target.scrollIntoView({ behavior: smoothScrollBehavior(), block: "start" });
 
         if (window.location.hash) {
             history.replaceState(null, "", window.location.pathname + window.location.search);
@@ -562,19 +562,8 @@ lightbox.addEventListener("click", (event) => {
     }
 });
 
-document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-        if (lightbox?.classList.contains("is-open")) {
-            closeLightbox();
-            return;
-        }
-        closeMobileMenu();
-        return;
-    }
-
-    if (event.key !== "Tab" || !lightbox?.classList.contains("is-open")) return;
-
-    const focusables = lightbox.querySelectorAll("button, a[href]");
+function trapFocus(container, event) {
+    const focusables = Array.from(container.querySelectorAll("button, a[href]")).filter((el) => el.getClientRects().length > 0);
     if (!focusables.length) return;
 
     const first = focusables[0];
@@ -586,9 +575,33 @@ document.addEventListener("keydown", (event) => {
     } else if (!event.shiftKey && document.activeElement === last) {
         event.preventDefault();
         first.focus();
-    } else if (!lightbox.contains(document.activeElement)) {
+    } else if (!container.contains(document.activeElement)) {
         event.preventDefault();
         first.focus();
+    }
+}
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        if (lightbox?.classList.contains("is-open")) {
+            closeLightbox();
+            return;
+        }
+        closeMobileMenu();
+        return;
+    }
+
+    if (event.key !== "Tab") return;
+
+    const menuIsOpen = mobileMenu?.classList.contains("is-open");
+
+    if (menuIsOpen) {
+        trapFocus(mobileMenu, event);
+        return;
+    }
+
+    if (lightbox?.classList.contains("is-open")) {
+        trapFocus(lightbox, event);
     }
 });
 
@@ -604,6 +617,18 @@ const revealObserver = new IntersectionObserver((entries) => {
     rootMargin: "0px 0px -70px 0px"
 });
 
-document.querySelectorAll(".reveal").forEach((element) => {
-    revealObserver.observe(element);
-});
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+if (prefersReducedMotion.matches) {
+    document.querySelectorAll(".reveal").forEach((element) => {
+        element.classList.add("is-visible");
+    });
+} else {
+    document.querySelectorAll(".reveal").forEach((element) => {
+        revealObserver.observe(element);
+    });
+}
+
+function smoothScrollBehavior() {
+    return prefersReducedMotion.matches ? "auto" : "smooth";
+}
