@@ -2057,7 +2057,8 @@ p:last-child {
     user-select: none;
     -webkit-user-select: none;
     touch-action: pan-y;
-    margin-top: clamp(28px, 4vw, 44px);
+    margin-top: clamp(16px, 2.5vw, 28px);
+    padding-block: 14px 20px;
     scrollbar-width: none;
     overscroll-behavior-x: contain;
 }
@@ -2090,13 +2091,14 @@ p:last-child {
     background: var(--color-surface-card);
     box-shadow: var(--shadow-soft);
     border: 1px solid var(--color-border-subtle);
+    will-change: transform;
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
                 box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
                 border-color 0.3s ease;
 }
 
 .review-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-hover);
     border-color: var(--color-border);
 }
