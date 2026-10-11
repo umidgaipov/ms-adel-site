@@ -138,26 +138,34 @@ function syncMarqueeOffsets() {
     });
 }
 
-const MARQUEE_SPEED = 38;
+const MARQUEE_SPEED = 48;
 
 function initMarqueeAutoplay() {
     const areas = Array.from(document.querySelectorAll(".drag-scroll"));
     if (!areas.length) return;
 
     areas.forEach((area) => {
-        area.dataset.paused = area.dataset.paused || "0";
+        area._scrollPos = area.scrollLeft;
+        area.dataset.hovered = "0";
+
         area.addEventListener("pointerenter", (e) => {
             if (e.pointerType === "mouse") {
-                area.dataset.paused = "1";
+                area.dataset.hovered = "1";
             }
         });
         area.addEventListener("pointerleave", (e) => {
             if (e.pointerType === "mouse") {
-                area.dataset.paused = "0";
+                area.dataset.hovered = "0";
             }
         });
-        area.addEventListener("focusin", () => { area.dataset.paused = "1"; });
-        area.addEventListener("focusout", () => { area.dataset.paused = "0"; });
+        area.addEventListener("focusin", () => { area.dataset.hovered = "1"; });
+        area.addEventListener("focusout", () => { area.dataset.hovered = "0"; });
+
+        area.addEventListener("scroll", () => {
+            if (area.dataset.dragged === "true" || area.classList.contains("is-dragging")) {
+                area._scrollPos = area.scrollLeft;
+            }
+        }, { passive: true });
     });
 
     let last = performance.now();
@@ -166,18 +174,28 @@ function initMarqueeAutoplay() {
         const dt = Math.min((now - last) / 1000, 0.05);
         last = now;
 
-        if (!document.hidden && !reducedMotion.matches) {
+        if (!document.hidden) {
             areas.forEach((area) => {
-                if (area.dataset.paused === "1" || area.dataset.dragged === "true" || area.classList.contains("is-dragging")) {
+                if (area.dataset.dragged === "true" || area.classList.contains("is-dragging")) {
                     return;
                 }
 
                 const loopWidth = parseFloat(area.style.getPropertyValue("--marquee-loop"));
                 if (!loopWidth || loopWidth <= 0) return;
 
-                let next = area.scrollLeft + MARQUEE_SPEED * dt;
-                if (next >= loopWidth) next -= loopWidth;
-                area.scrollLeft = next;
+                if (typeof area._scrollPos !== "number" || isNaN(area._scrollPos)) {
+                    area._scrollPos = area.scrollLeft;
+                }
+
+                const baseSpeed = reducedMotion.matches ? 16 : MARQUEE_SPEED;
+                const speed = area.dataset.hovered === "1" ? baseSpeed * 0.35 : baseSpeed;
+
+                area._scrollPos += speed * dt;
+                if (area._scrollPos >= loopWidth) {
+                    area._scrollPos -= loopWidth;
+                }
+
+                area.scrollLeft = area._scrollPos;
             });
         }
 
@@ -541,12 +559,14 @@ dragAreas.forEach((area) => {
 
         if (!moved) {
             area.dataset.dragged = "false";
+            area._scrollPos = area.scrollLeft;
             return;
         }
 
         area.dataset.dragged = "true";
         window.setTimeout(() => {
             area.dataset.dragged = "false";
+            area._scrollPos = area.scrollLeft;
         }, 200);
     }
 
