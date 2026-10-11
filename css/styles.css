@@ -1374,6 +1374,7 @@ p:last-child {
 }
 
 .portfolio-track {
+    position: relative;
     width: max-content;
     display: flex;
     gap: 20px;
@@ -2070,6 +2071,7 @@ p:last-child {
 }
 
 .reviews-track {
+    position: relative;
     width: max-content;
     display: flex;
     flex-direction: row;

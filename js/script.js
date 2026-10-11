@@ -146,8 +146,16 @@ function initMarqueeAutoplay() {
 
     areas.forEach((area) => {
         area.dataset.paused = area.dataset.paused || "0";
-        area.addEventListener("pointerenter", () => { area.dataset.paused = "1"; });
-        area.addEventListener("pointerleave", () => { area.dataset.paused = "0"; });
+        area.addEventListener("pointerenter", (e) => {
+            if (e.pointerType === "mouse") {
+                area.dataset.paused = "1";
+            }
+        });
+        area.addEventListener("pointerleave", (e) => {
+            if (e.pointerType === "mouse") {
+                area.dataset.paused = "0";
+            }
+        });
         area.addEventListener("focusin", () => { area.dataset.paused = "1"; });
         area.addEventListener("focusout", () => { area.dataset.paused = "0"; });
     });
@@ -224,21 +232,28 @@ function setupMarquees() {
     syncMarqueeOffsets();
 }
 
+let marqueesBooted = false;
 function bootMarquees() {
+    if (marqueesBooted) {
+        setupMarquees();
+        return;
+    }
+    marqueesBooted = true;
     setupMarquees();
     initMarqueeAutoplay();
 }
 
-function deferBootMarquees() {
-    if ("requestIdleCallback" in window) {
-        requestIdleCallback(bootMarquees, { timeout: 1500 });
+function initMarqueesOnReady() {
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", bootMarquees);
     } else {
-        setTimeout(bootMarquees, 150);
+        bootMarquees();
     }
+    window.addEventListener("load", setupMarquees, { passive: true });
 }
 
+initMarqueesOnReady();
 window.addEventListener("resize", setupMarquees, { passive: true });
-window.addEventListener("load", deferBootMarquees, { once: true });
 
 if (menuToggle) {
     menuToggle.addEventListener("click", toggleMobileMenu);
@@ -476,7 +491,9 @@ dragAreas.forEach((area) => {
         startScroll = area.scrollLeft;
         area.dataset.dragged = "false";
         area.classList.add("is-dragging");
-        area.setPointerCapture(event.pointerId);
+        try {
+            area.setPointerCapture(event.pointerId);
+        } catch (_) {}
     });
 
     area.addEventListener("pointermove", (event) => {
@@ -512,8 +529,14 @@ dragAreas.forEach((area) => {
 
         isPointerDown = false;
         area.classList.remove("is-dragging");
-        if (area.hasPointerCapture(event.pointerId)) {
-            area.releasePointerCapture(event.pointerId);
+        if (area.hasPointerCapture && area.hasPointerCapture(event.pointerId)) {
+            try {
+                area.releasePointerCapture(event.pointerId);
+            } catch (_) {}
+        }
+
+        if (event.pointerType !== "mouse") {
+            area.dataset.paused = "0";
         }
 
         if (!moved) {
@@ -521,26 +544,16 @@ dragAreas.forEach((area) => {
             return;
         }
 
-        let calmTimer;
         area.dataset.dragged = "true";
-
-        const settle = () => {
-            area.removeEventListener("scroll", onCalmScroll);
+        window.setTimeout(() => {
             area.dataset.dragged = "false";
-        };
-
-        const onCalmScroll = () => {
-            window.clearTimeout(calmTimer);
-            calmTimer = window.setTimeout(settle, 220);
-        };
-        area.addEventListener("scroll", onCalmScroll);
-        onCalmScroll();
+        }, 200);
     }
 
     area.addEventListener("pointerup", endDrag);
     area.addEventListener("pointercancel", endDrag);
     area.addEventListener("pointerleave", (event) => {
-        if (isPointerDown) {
+        if (isPointerDown && event.pointerType === "mouse") {
             endDrag(event);
         }
     });
