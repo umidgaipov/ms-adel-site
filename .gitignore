@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Documentation, AI instructions & local skills
+docs/
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+GEMINI.MD
+.agents/
+
+# Environment and secrets
+.env*
+*.env
